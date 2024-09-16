@@ -1,8 +1,6 @@
 BUILD_DIR = build
 BIN = ${BUILD_DIR}/ProjectName
 
-GLSLC = glslc
-
 export VCPKG_ROOT
 
 DEBUG_FLAGS = -DCMAKE_BUILD_TYPE=Debug
