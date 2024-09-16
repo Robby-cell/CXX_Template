@@ -9,3 +9,9 @@ target_include_directories(Core PUBLIC Include)
 
 add_executable(ProjectName Source/Main.cpp)
 target_link_libraries(ProjectName PRIVATE Core)
+
+if(MSVC)
+  target_compile_options(<target> PUBLIC "/ZI")
+  target_link_options(<target> PUBLIC "/INCREMENTAL")
+endif()
+
