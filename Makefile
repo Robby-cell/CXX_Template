@@ -1,31 +1,22 @@
 BUILD_DIR = build
-BIN = ${BUILD_DIR}/ProjectName
+
+TEST = ${BUILD_DIR}/tests/test
 
 export VCPKG_ROOT
 
-DEBUG_FLAGS = -DCMAKE_BUILD_TYPE=Debug
-RELEASE_FLAGS = -DCMAKE_BUILD_TYPE=Release
-BUILD_PROGRAM_FLAG = -G "Ninja"
-TOOLCHAIN_FLAG = -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-
-# E.G
-# Main%: debug
-# 	./${BUILD_DIR}/Pointer$(subst Pointer,,$@)
-
-run: debug
-	./${BIN}
+test: debug
+	./${TEST}
 
 debug: ${BUILD_DIR}/
-	cd build && \
-	cmake .. ${BUILD_PROGRAM_FLAG} ${TOOLCHAIN_FLAG} ${DEBUG_FLAGS} && \
-	cmake --build .
+	cmake --preset=debug && \
+    cmake --build build
 
 release: ${BUILD_DIR}/
-	cd build && \
-	cmake .. ${BUILD_PROGRAM_FLAG} ${TOOLCHAIN_FLAG} ${RELEASE_FLAGS} && \
-	cmake --build .
+	cmake --preset=release && \
+    cmake --build build
 
-${BUILD_DIR}/:
-	mkdir ${BUILD_DIR}
+build/:
+	mkdir build
 
-.PHONY: %
+clean:
+	rm -rf ${BUILD_DIR}
